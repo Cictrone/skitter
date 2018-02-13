@@ -5,3 +5,4 @@ The world is hungry for a new, secure, and equally scalable version of Twitter. 
 
 ## Network Topology
 ![Network Topology](https://github.com/Cictrone/skitter/blob/master/Network%20Topology.png "Network Topology")
+To show how non-mainstream we are simply observe above. Even our authentication is a counter to how the deep-tech media wants us to authenticate. We use RIT's LDAP as our sole authentication service!
