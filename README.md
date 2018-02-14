@@ -7,5 +7,9 @@ The world is hungry for a new, secure, and equally scalable version of Twitter. 
 ![Network Topology](https://github.com/Cictrone/skitter/blob/master/Network%20Topology.png "Network Topology")
 To show how non-mainstream we are simply observe above. Even our authentication is a counter to how the deep-tech media wants us to authenticate. We use RIT's LDAP as our sole authentication service!
 
+## Main Page Mockup
+![Main Page Mockup](https://github.com/Cictrone/skitter/blob/master/main_page_mockup.PNG "Mockup")
+Seen above is a presentation of our amazing homepage. Designed to perfectly meet all the synergistic and ergonomic needs of our customer base.
+
 ## Disclaimer
 Be aware that the contents of this readme are almost fully satirical and meant in jest. In addition, no copyright infringement or defamation is intended against Twitter Inc. 
