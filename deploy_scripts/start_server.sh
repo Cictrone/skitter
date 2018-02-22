@@ -1,3 +1,4 @@
 #!/bin/bash
 echo "Starting Flask on EC2 Instance..."
-python3 /home/ubuntu/skitter/app.py > /dev/null 2> /dev/null < /dev/null &
+export FLASK_APP=/home/ubuntu/skitter/app.py
+/usr/local/bin/flask run --host=0.0.0.0 >/dev/null 2>&1 &
