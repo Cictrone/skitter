@@ -3,3 +3,16 @@ os: linux
 files:
   - source: ./
     destination: /home/ubuntu/skitter
+hooks:
+  BeforeInstall:
+    - location: deploy_scripts/install_dependencies.sh
+      timeout: 300
+      runas: root
+  ApplicationStart:
+    - location: deploy_scripts/start_server.sh
+      timeout: 300
+      runas: root
+  ApplicationStop:
+    - location: deploy_scripts/stop_server.sh
+      timeout: 300
+      runas: root

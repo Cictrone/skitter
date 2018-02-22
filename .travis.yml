@@ -32,7 +32,3 @@ deploy:
     deployment_group: SkitterGroup
     region: us-east-2
     on: *2
-
-
-after_deploy:
-  - python3 app.py
