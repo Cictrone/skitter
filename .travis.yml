@@ -8,7 +8,7 @@ deploy:
     local_dir: dpl_cd_upload
     skip_cleanup: true
     on:
-      - condition: pytest tests.py
+      condition: pytest tests.py
     bucket: skitter-s3
     region: us-east-2
   - provider: codedeploy
@@ -20,7 +20,8 @@ deploy:
     application: Skitter
     deployment_group: SkitterGroup
     region: us-east-2
-    on: *2
+    on:
+      condition: python3 app.py
 install:
   - pip install -r requirements.txt
 script:
