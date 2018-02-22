@@ -19,8 +19,7 @@ deploy:
     secret_access_key: $AWS_SECRET_KEY
     local_dir: dpl_cd_upload
     skip_cleanup: true
-    on:
-      condition: true
+    on: &2
     bucket: skitter-s3
     region: us-east-2
   - provider: codedeploy
@@ -32,9 +31,4 @@ deploy:
     application: Skitter
     deployment_group: SkitterGroup
     region: us-east-2
-    on:
-      condition: true
-
-  after_deploy:
-    - pip3 install -r requirements.txt
-    - python3 app.py
+    on: *2
