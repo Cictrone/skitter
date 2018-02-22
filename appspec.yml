@@ -4,7 +4,7 @@ files:
   - source: latest/
     destination: /home/ubuntu/skitter
 hooks:
-  BeforeInstall:
+  Install:
     - location: deploy_scripts/install_dependencies.sh
       timeout: 300
       runas: root
