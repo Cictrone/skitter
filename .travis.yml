@@ -1,6 +1,18 @@
 language: python
 python:
   - "3.6"
+
+script:
+  - pytest tests.py
+
+install:
+  - pip install -r requirements.txt
+
+before_deploy:
+  - zip -r latest *
+  - mkdir -p dpl_cd_upload
+  - mv latest.zip dpl_cd_upload/latest.zip
+
 deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY
@@ -8,7 +20,7 @@ deploy:
     local_dir: dpl_cd_upload
     skip_cleanup: true
     on:
-      condition: pytest tests.py
+      condition: true
     bucket: skitter-s3
     region: us-east-2
   - provider: codedeploy
@@ -21,10 +33,8 @@ deploy:
     deployment_group: SkitterGroup
     region: us-east-2
     on:
-      condition: python3 app.py
-install:
-  - pip install -r requirements.txt
-script:
-  - zip -r latest *
-  - mkdir -p dpl_cd_upload
-  - mv latest.zip dpl_cd_upload/latest.zip
+      condition: true
+
+  after_deploy:
+    - pip3 install -r requirements.txt
+    - python3 app.py
