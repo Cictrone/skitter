@@ -1,7 +1,7 @@
 version: 0.0
 os: linux
 files:
-  - source: ./
+  - source: latest/
     destination: /home/ubuntu/skitter
 hooks:
   BeforeInstall:
