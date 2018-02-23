@@ -1,0 +1,8 @@
+version: '3'
+services:
+        nginx-proxy:
+                build: proxy/
+                ports:
+                        - "8080:8080"
+        nginx-web:
+                build: webserver/

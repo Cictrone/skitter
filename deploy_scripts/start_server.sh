@@ -1,3 +1,6 @@
 #!/bin/bash
 echo "Starting Flask on EC2 Instance..."
-python3 /home/ubuntu/skitter/app.py &
+cd /home/ubuntu/skitter/
+/usr/local/bin/docker-compose up >/dev/null 2>&1 &
+
+sleep 10

@@ -1,3 +1,4 @@
 #!/bin/bash
-echo "Stopping Flask on EC2 Instance..."
-pkill -f *app.py
+echo "Stopping Docker on EC2 Instance..."
+cd /home/ubuntu/skitter/
+/usr/local/bin/docker-compose kill
