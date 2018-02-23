@@ -19,9 +19,6 @@ deploy:
     secret_access_key: $AWS_SECRET_KEY
     local_dir: dpl_cd_upload
     skip_cleanup: true
-    # only for dev
-    on:
-      branch: Issue_51
     bucket: skitter-s3
     region: us-east-1
   - provider: codedeploy
@@ -33,6 +30,3 @@ deploy:
     application: Skitter
     deployment_group: SkitterGroup
     region: us-east-1
-    # only for dev
-    on:
-      branch: Issue_51
