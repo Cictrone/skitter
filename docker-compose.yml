@@ -1,8 +1,13 @@
 version: '3'
 services:
-        nginx-proxy:
-                build: proxy/
-                ports:
-                        - "8080:8080"
-        nginx-web:
-                build: webserver/
+  skitter-proxy:
+    build: proxy/
+    depends_on:
+      - skitter-1
+      - skitter-2
+    ports:
+      - "80:80"
+  skitter-1:
+    build: webserver/
+  skitter-2:
+    build: webserver/
