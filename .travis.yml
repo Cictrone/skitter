@@ -3,10 +3,14 @@ python:
   - "3.5"
 
 script:
+  - javac -version
   - pytest tests.py
 
 install:
   - pip install -r requirements.txt
+  - add-apt-repository ppa:webupd8team/java
+  - apt update
+  - apt install oracle-java8-installer
 
 before_deploy:
   - zip -r latest *
