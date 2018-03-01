@@ -2,11 +2,20 @@ language: python
 python:
   - "3.5"
 
+sudo: required
+services:
+  - docker
+
 script:
-  - pytest tests.py
+  - sudo /usr/local/bin/docker-compose build
+  - sudo /usr/local/bin/docker-compose up >> stdout 2>> stderr &
+  - bzt tests/JMETER-Taurus-Test.yml
+  - pytest tests/tests.py
 
 install:
   - pip install -r requirements.txt
+  - sudo curl -L https://github.com/docker/compose/releases/download/1.17.0/docker-compose-`uname -s`-`uname -m` | sudo tee /usr/local/bin/docker-compose > /dev/null
+  - sudo chmod +x /usr/local/bin/docker-compose
 
 before_deploy:
   - zip -r latest *

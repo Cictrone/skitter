@@ -1,0 +1,22 @@
+execution:
+- executor: jmeter
+  concurrency: 10
+  hold-for: 10s
+  ramp-up: 5s
+  locations:
+    us-east-1: 1
+    us-west-1: 1
+    us-west-2: 1
+    eu-west-1: 1
+    eu-central-1: 1
+  scenario: Thread Group
+scenarios:
+  Thread Group:
+    requests:
+    - label: skitter_jmeter
+      method: GET
+      url: http://localhost/
+reporting:
+- module: passfail
+  criteria:
+  - failures>1% for 5s, stop as failed
