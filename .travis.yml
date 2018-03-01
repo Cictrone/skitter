@@ -2,15 +2,21 @@ language: python
 python:
   - "3.5"
 
+sudo: required
+services:
+  - docker
+
 script:
-  - javac -version
-  - pytest tests.py
+  - docker-compose -v
+  - pytest tests/tests.py
 
 install:
   - pip install -r requirements.txt
   - sudo add-apt-repository ppa:webupd8team/java -y
   - sudo apt -y update
   - sudo apt -y install oracle-java8-installer
+  - sudo curl -L https://github.com/docker/compose/releases/download/1.17.0/docker-compose-`uname -s`-`uname -m` | sudo tee /usr/local/bin/docker-compose > /dev/null
+  - sudo chmod +x /usr/local/bin/docker-compose
 
 before_deploy:
   - zip -r latest *
