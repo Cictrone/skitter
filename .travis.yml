@@ -7,7 +7,8 @@ services:
   - docker
 
 script:
-  - sudo /usr/local/bin/docker-compose up --build >> stdout 2>> stderr &
+  - sudo /usr/local/bin/docker-compose build
+  - sudo /usr/local/bin/docker-compose up >> stdout 2>> stderr &
   - bzt tests/JMETER-Taurus-Test.yml
   - pytest tests/tests.py
 
