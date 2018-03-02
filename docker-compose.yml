@@ -4,11 +4,10 @@ services:
     build: proxy/
     depends_on:
       - skitter
+      - skitter-auth
     ports:
       - "80:80"
   skitter:
     build: webserver/
   skitter-auth:
     build: auth/
-    depends_on:
-      - skitter-proxy
