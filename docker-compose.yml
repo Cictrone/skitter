@@ -11,3 +11,7 @@ services:
     build: webserver/
   skitter-2:
     build: webserver/
+  skitter-auth:
+    build: auth/
+    depends_on:
+      - skitter-proxy
