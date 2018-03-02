@@ -3,13 +3,10 @@ services:
   skitter-proxy:
     build: proxy/
     depends_on:
-      - skitter-1
-      - skitter-2
+      - skitter
     ports:
       - "80:80"
-  skitter-1:
-    build: webserver/
-  skitter-2:
+  skitter:
     build: webserver/
   skitter-auth:
     build: auth/
