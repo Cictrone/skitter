@@ -15,7 +15,7 @@ scenarios:
     requests:
     - label: skitter_jmeter
       method: GET
-      url: http://localhost/
+      url: https://localhost/
 reporting:
 - module: passfail
   criteria:
