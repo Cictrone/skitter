@@ -7,6 +7,7 @@ services:
       - skitter-auth
     ports:
       - "80:80"
+      - "443:443"
   skitter:
     build: webserver/
   skitter-auth:
