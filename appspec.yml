@@ -4,7 +4,7 @@ files:
   - source: ./
     destination: /opt/skitter
 hooks:
-  After_Install:
+  AfterInstall:
     - location: deploy_scripts/install_dependencies.sh
       timeout: 300
       runas: ec2-user
