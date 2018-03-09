@@ -12,6 +12,7 @@ class TestMethods(unittest.TestCase):
             # if server is not up
             self.fail("Failed with {}".format(e))
         # test assumes sessionID will never be deadbeef
+        resp_parsed = resp.json()
         self.assertTrue(resp.status_code == 401 and resp_parsed['response'] == "false")
 
     def test_Login_Fail(self):
@@ -21,7 +22,7 @@ class TestMethods(unittest.TestCase):
         except requests.exceptions.ConnectionError as e:
             # if server is not up
             self.fail("Failed with {}".format(e))
-
+        resp_parsed = resp.json()
         self.assertTrue(resp.status_code == 401 and resp_parsed['response'] == "false")
 
     def test_Logout_Fail(self):
@@ -32,6 +33,8 @@ class TestMethods(unittest.TestCase):
             # if server is not up
             self.fail("Failed with {}".format(e))
         # test assumes sessionID will never be deadbeef
+        resp_parsed = resp.json()
+        print("Response was: ", resp.status_code)
         self.assertTrue(resp.status_code == 401 and resp_parsed['response'] == "false")
 
 if __name__ == '__main__':

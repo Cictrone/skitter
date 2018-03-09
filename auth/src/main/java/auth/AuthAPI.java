@@ -85,9 +85,10 @@ public class AuthAPI {
     String sessionID = WebUtils.getCookie(request, "sessionID").getValue();
     if(sessionID != null){
       AuthClient client = new AuthClient(sessionID);
-      client.Logout();
-      loginResponse = true;
-      responseStatus = HttpStatus.ACCEPTED;
+      loginResponse = client.Logout();
+      if(loginResponse){
+        responseStatus = HttpStatus.ACCEPTED;
+      }
     }
     final String location = request.getHeader("Host")+request.getContextPath();
     HttpHeaders headers = new HttpHeaders();

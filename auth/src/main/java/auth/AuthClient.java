@@ -98,7 +98,7 @@ public class AuthClient{
   public Boolean Logout() throws Exception{
     // Should never happen
     if(!this.loginSuccess){
-      return null;
+      return false;
     }
     Class.forName("com.mysql.jdbc.Driver");
     Connection conn = DriverManager.getConnection(this.authDB, "root", "skitter_auth_dbpass");
