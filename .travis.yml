@@ -8,9 +8,9 @@ services:
 
 script:
   - sudo /usr/local/bin/docker-compose build
-  - sudo /usr/local/bin/docker-compose up --scale skitter=2 &
+  - sudo /usr/local/bin/docker-compose up --scale skitter=2 -d
   # - bzt tests/JMETER-Taurus-Test.yml
-  - sleep 25
+  - sleep 30
   - pytest tests/tests.py
 
 install:
