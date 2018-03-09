@@ -1,6 +1,8 @@
 import unittest
+import urllib3
 import requests
 import json
+urllib3.disable_warnings()
 
 
 class TestMethods(unittest.TestCase):
