@@ -9,7 +9,7 @@ services:
 script:
   - sudo /usr/local/bin/docker-compose build
   - sudo /usr/local/bin/docker-compose up --scale skitter=2 &
-  - bzt tests/JMETER-Taurus-Test.yml
+  # - bzt tests/JMETER-Taurus-Test.yml
   - pytest tests/tests.py
 
 install:
