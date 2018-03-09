@@ -15,7 +15,7 @@ install:
 
 script:
   # - bzt tests/JMETER-Taurus-Test.yml
-  - sleep 30
+  - sleep 35
   - pytest tests/tests.py
 
 before_deploy:
