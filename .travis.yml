@@ -11,11 +11,10 @@ install:
   - sudo curl -L https://github.com/docker/compose/releases/download/1.17.0/docker-compose-`uname -s`-`uname -m` | sudo tee /usr/local/bin/docker-compose > /dev/null
   - sudo chmod +x /usr/local/bin/docker-compose
   - sudo /usr/local/bin/docker-compose build
-  - sudo /usr/local/bin/docker-compose up --scale skitter=2 &
+  - sudo /usr/local/bin/docker-compose up --scale skitter=2 >> stdout 2>> stderr &
 
 script:
-  # - bzt tests/JMETER-Taurus-Test.yml
-  - sleep 35
+  - bzt tests/JMETER-Taurus-Test.yml
   - pytest tests/tests.py
 
 before_deploy:
