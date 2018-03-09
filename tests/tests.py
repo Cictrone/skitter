@@ -1,8 +1,6 @@
 import unittest
-import urllib3
 import requests
 import json
-urllib3.disable_warnings()
 
 
 class TestMethods(unittest.TestCase):
@@ -36,7 +34,6 @@ class TestMethods(unittest.TestCase):
             self.fail("Failed with {}".format(e))
         # test assumes sessionID will never be deadbeef
         resp_parsed = resp.json()
-        print("Response was: ", resp.status_code)
         self.assertTrue(resp.status_code == 401 and resp_parsed['response'] == "false")
 
 if __name__ == '__main__':
