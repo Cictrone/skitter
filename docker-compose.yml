@@ -1,5 +1,19 @@
 version: '3'
 services:
+
+  skitter:
+    build: webserver/
+
+  skitter-auth-db:
+    image: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=skitter_auth_dbpass
+
+  skitter-auth:
+    build: auth/
+    depends_on:
+      - skitter-auth-db
+
   skitter-proxy:
     build: proxy/
     depends_on:
@@ -8,7 +22,3 @@ services:
     ports:
       - "80:80"
       - "443:443"
-  skitter:
-    build: webserver/
-  skitter-auth:
-    build: auth/
