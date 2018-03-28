@@ -12,7 +12,7 @@
 
       $updateResponse = Update($sessionID, $username, $password, $email, $name, $profileImage);
       if (!($updateResponse['response'] == "true")){
-        die("False - Invalid User");
+        die("False - Invalid RIT Credentials");
       }else{
         die("True - Update Successful");
       }

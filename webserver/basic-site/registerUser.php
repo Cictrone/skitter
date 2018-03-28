@@ -11,7 +11,7 @@
     if ($registerResponse['status_code'] == "409"){
       die("False - User Already Exists");
     }
-    die("False - Invalid User");
+    die("False - Invalid RIT Credentials");
   }else{
     die("True - Registration Successful");
   }

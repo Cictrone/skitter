@@ -5,7 +5,7 @@
   	if(isAuthenticated($sessionID)){
       $deleteResponse = Delete($sessionID);
       if (!($deleteResponse['response'] == "true")){
-        die("False - Invalid User");
+        die("False - Invalid RIT Credentials");
       }else{
         die("True - Delete Successful");
       }
