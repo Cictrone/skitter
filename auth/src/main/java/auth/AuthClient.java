@@ -90,6 +90,51 @@ public class AuthClient{
     return true;
   }
 
+  private Boolean isSessionIDValid(String sessionID) throws Exception{
+    String query = "select sessionID from User where username=?";
+    Class.forName("com.mysql.jdbc.Driver");
+    Connection conn = DriverManager.getConnection(this.authDB, "root", "skitter_auth_dbpass");
+    PreparedStatement preparedStmt = conn.prepareStatement(query);
+    preparedStmt.setString(1, this.username);
+    ResultSet rs = preparedStmt.executeQuery();
+    String test = null;
+    while (rs.next()) {
+        test = rs.getString("sessionID");
+    }
+    conn.close();
+    if(test == null){
+      return false;
+    }
+    return test.equals(sessionID);
+  }
+
+  public String[] GetUserData() throws Exception{
+    String query = "select email, displayName, profileImage from User where username=?";
+    Class.forName("com.mysql.jdbc.Driver");
+    Connection conn = DriverManager.getConnection(this.authDB, "root", "skitter_auth_dbpass");
+    PreparedStatement preparedStmt = conn.prepareStatement(query);
+    preparedStmt.setString(1, this.username);
+    ResultSet rs = preparedStmt.executeQuery();
+    String email = null;
+    String name = null;
+    String profileImage = null;
+    String[] data = new String[4];
+    while (rs.next()) {
+      email = rs.getString("email");
+      name = rs.getString("displayName");
+      profileImage = rs.getString("profileImage");
+    }
+    conn.close();
+    if(email == null){
+      return null;
+    }
+    data[0] = this.username;
+    data[1] = email;
+    data[2] = name;
+    data[3] = profileImage;
+    return data;
+  }
+
   public Boolean RegisterUser(String displayName, String email) throws Exception{
     // Should never happen
     if(!this.loginSuccess){
@@ -111,6 +156,26 @@ public class AuthClient{
     preparedStmt.execute();
     conn.close();
     System.out.println("User: "+this.username+" has successfully been registered...");
+    return true;
+  }
+
+  public Boolean UpdateUser(String sessionID, String displayName, String email, String profileImage) throws Exception{
+    // Should never happen
+    if(!this.loginSuccess || !this.isSessionIDValid(sessionID)){
+      System.out.println("User: "+this.username+" has failed to be updated in...");
+      return false;
+    }
+    Class.forName("com.mysql.jdbc.Driver");
+    Connection conn = DriverManager.getConnection(this.authDB, "root", "skitter_auth_dbpass");
+    String query = "update User set displayName=?, email=?, profileImage=? where username=?";
+    PreparedStatement preparedStmt = conn.prepareStatement(query);
+    preparedStmt.setString(1, displayName);
+    preparedStmt.setString(2, email);
+    preparedStmt.setString(3, profileImage);
+    preparedStmt.setString(4, this.username);
+    preparedStmt.execute();
+    conn.close();
+    System.out.println("User: "+this.username+" has successfully been logged in...");
     return true;
   }
 

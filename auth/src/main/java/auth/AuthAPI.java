@@ -87,12 +87,39 @@ public class AuthAPI {
     return new ResponseEntity<Map>(json_resp, headers, responseStatus);
   }
 
-
-
-
-
-
-
+  @RequestMapping(path="/GetUserData", method=RequestMethod.POST)
+  public ResponseEntity<Map> GetUserData(HttpServletRequest request, HttpServletResponse response) throws Exception{
+    HttpStatus responseStatus = HttpStatus.UNAUTHORIZED;
+    Boolean loginResponse = false;
+    Boolean dataResponse = false;
+    String[] data = null;
+    String sessionID = WebUtils.getCookie(request, "sessionID").getValue();
+    if(sessionID != null){
+      AuthClient client = new AuthClient(sessionID);
+      loginResponse = client.loginSuccess;
+      if(loginResponse){
+        data = client.GetUserData();
+        // add more logic for skits
+        if(data != null){
+          dataResponse = true;
+          responseStatus = HttpStatus.OK;
+        }
+      }
+    }
+    final String location = request.getHeader("Host")+request.getContextPath();
+    HttpHeaders headers = new HttpHeaders();
+    headers.setLocation(new URI(location));
+    headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+    Map<String, String> json_resp = new HashMap<>();
+    json_resp.put("response", String.valueOf(dataResponse));
+    if (data != null){
+      json_resp.put("username", data[0]);
+      json_resp.put("email", data[1]);
+      json_resp.put("name", data[2]);
+      json_resp.put("profileImage", data[3]);
+    }
+    return new ResponseEntity<Map>(json_resp, headers, responseStatus);
+  }
 
 
   @RequestMapping(path="/isAuthenticated", method=RequestMethod.POST)
@@ -113,6 +140,34 @@ public class AuthAPI {
     headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
     Map<String, String> json_resp = new HashMap<>();
     json_resp.put("response", String.valueOf(loginResponse));
+    return new ResponseEntity<Map>(json_resp, headers, responseStatus);
+  }
+
+  @RequestMapping(path="/UpdateUser", method=RequestMethod.POST)
+  public ResponseEntity<Map> UpdateUser(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    HttpStatus responseStatus = HttpStatus.UNAUTHORIZED;
+    Boolean updateResponse = false;
+    String sessionID = WebUtils.getCookie(request, "sessionID").getValue();
+    final String username = request.getParameter("username");
+    final String password = request.getParameter("password");
+    final String displayName = request.getParameter("displayName");
+    final String email = request.getParameter("email");
+    final String profileImage = request.getParameter("profileImage");
+    if(sessionID != null){
+      AuthClient client = new AuthClient(username, password, true);
+      if (client.loginSuccess){
+        updateResponse = client.UpdateUser(sessionID, displayName, email, profileImage);
+        if(updateResponse){
+          responseStatus = HttpStatus.OK;
+        }
+      }
+    }
+    final String location = request.getHeader("Host")+request.getContextPath();
+    HttpHeaders headers = new HttpHeaders();
+    headers.setLocation(new URI(location));
+    headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+    Map<String, String> json_resp = new HashMap<>();
+    json_resp.put("response", String.valueOf(updateResponse));
     return new ResponseEntity<Map>(json_resp, headers, responseStatus);
   }
 
