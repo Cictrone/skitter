@@ -5,7 +5,7 @@ if(isset($_COOKIE['sessionID'])){
 	$sessionID = $_COOKIE['sessionID'];
 	if(!isAuthenticated($sessionID)){
 		header("Set-Cookie: sessionID=deleted; expires=Thu, 01 Jan 1970 00:00:00 GMT");
-		header("Location: https://localhost/index.php");
+		header("Location: /index.php");
 		exit();
 	}else{
 		$userData = GetUserData($sessionID);
@@ -112,7 +112,7 @@ if(isset($_COOKIE['sessionID'])){
 		';
 	}
 }else{
-	header("Location: https://localhost/index.php");
+	header("Location: /index.php");
 	exit();
 }
 

@@ -4,11 +4,11 @@ include_once("common.php");
 if(isset($_COOKIE['sessionID'])){
 	$sessionID = $_COOKIE['sessionID'];
 	if(isAuthenticated($sessionID)){
-		header("Location: https://localhost/home.php");
+		header("Location: /home.php");
 		exit();
 	}else{
 		header("Set-Cookie: sessionID=deleted; expires=Thu, 01 Jan 1970 00:00:00 GMT");
-		header("Location: https://localhost/index.php");
+		header("Location: /index.php");
 		exit();
 	}
 }else{
