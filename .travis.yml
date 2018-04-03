@@ -3,6 +3,10 @@ python:
   - "3.5"
 
 sudo: required
+addons:
+  chrome: stable
+  firefox: latest
+  
 services:
   - docker
 

@@ -14,7 +14,7 @@ if(isset($_COOKIE['sessionID'])){
 			<html lang="en">
 				<head>
 					<meta charset="utf-8">
-					<title>Skitter</title>
+					<title>Skitter - Home</title>
 					<script type="text/javascript" src="js/jquery.min.js"></script>
 					<link rel="stylesheet" src="css/semantic.min.css" />
 					<link rel=icon href=images/skitter_s.png>

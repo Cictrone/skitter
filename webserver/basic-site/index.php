@@ -48,6 +48,8 @@ if(isset($_COOKIE['sessionID'])){
 			$("#loginButton").click(function(event){
 				event.preventDefault();
 				var data = {"username": $("#usernameInput")[0].value, "password": $("#passwordInput")[0].value};
+				$("#usernameInputDiv").attr("class", "ui left icon input loading");
+				$("#passwordInputDiv").attr("class", "ui left icon input loading");
 				$.post( "login.php", data)
 					.done(function( data ) {
 						if(data.search("False - ") != -1){
@@ -76,13 +78,13 @@ if(isset($_COOKIE['sessionID'])){
 					<form id="loginForm" class="ui large form">
 						<div id="login" class="ui stacked segment">
 							<div class="field">
-								<div class="ui left icon input">
+								<div id="usernameInputDiv" class="ui left icon input">
 									<i class="user icon"></i>
 									<input id="usernameInput" name="username" type="text" placeholder="Username">
 								</div>
 							</div>
 							<div class="field">
-			          <div class="ui left icon input">
+			          <div id="passwordInputDiv" class="ui left icon input">
 			            <i class="lock icon"></i>
 			            <input id="passwordInput" type="password" name="password" placeholder="Password">
 			          </div>
