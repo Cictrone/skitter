@@ -164,8 +164,8 @@ class TestBrowser(unittest.TestCase):
             self.assertTrue(firefox.TestFailRegisterAccount())
             self.assertTrue(firefox.TestSuccessRegisterAccount())
             self.assertTrue(firefox.TestSucceessLogin())
-    except:
-        self.assertTrue(True)
+        except:
+            self.assertTrue(True)
 
     def test_Chrome(self):
         try:
