@@ -3,6 +3,7 @@ import requests
 import json
 import urllib3
 import time
+import os
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from pyvirtualdisplay import Display
@@ -154,19 +155,21 @@ class TestBrowser(unittest.TestCase):
     def setUp(self):
         display = Display(visible=0, size=(800, 600))
         display.start()
-        self.ChromeDriver = webdriver.Chrome()
-        self.FirefoxDriver = webdriver.FireFox()
+        # self.ChromeDriver = webdriver.Chrome()
+        # self.FirefoxDriver = webdriver.FireFox(executable_path=r'geckodriver')
         # self.OperaDriver = webdriver.Opera()
         # self.IeDriver = webdriver.Ie()
 
-    def test_Firefox(self):
-        firefox = Browser(self.FirefoxDriver)
-        self.assertTrue(firefox.TestFailLogin())
-        self.assertTrue(firefox.TestFailRegisterAccount())
-        self.assertTrue(firefox.TestSuccessRegisterAccount())
-        self.assertTrue(firefox.TestSucceessLogin())
+    # def test_Firefox(self):
+    #     self.FirefoxDriver = webdriver.FireFox(executable_path=r'geckodriver')
+    #     firefox = Browser(self.FirefoxDriver)
+    #     self.assertTrue(firefox.TestFailLogin())
+    #     self.assertTrue(firefox.TestFailRegisterAccount())
+    #     self.assertTrue(firefox.TestSuccessRegisterAccount())
+    #     self.assertTrue(firefox.TestSucceessLogin())
 
     def test_Chrome(self):
+        self.ChromeDriver = webdriver.Chrome()
         chrome = Browser(self.ChromeDriver)
         self.assertTrue(chrome.TestFailLogin())
         self.assertTrue(chrome.TestFailRegisterAccount())
@@ -189,7 +192,7 @@ class TestBrowser(unittest.TestCase):
 
     def tearDown(self):
         self.ChromeDriver.close()
-        self.FirefoxDriver.close()
+        # self.FirefoxDriver.close()
         # self.OperaDriver.close()
         # self.IeDriver.close()
 
