@@ -5,6 +5,8 @@ import urllib3
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from pyvirtualdisplay import Display
+
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -150,6 +152,8 @@ class Browser():
 class TestBrowser(unittest.TestCase):
 
     def setUp(self):
+        display = Display(visible=0, size=(800, 600))
+        display.start()
         self.ChromeDriver = webdriver.Chrome()
         self.FirefoxDriver = webdriver.FireFox()
         # self.OperaDriver = webdriver.Opera()
