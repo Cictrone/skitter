@@ -24,7 +24,7 @@ install:
   - sudo mv -f chromedriver /usr/local/share/chromedriver
   - sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
   - sudo ln -s /usr/local/share/chromedriver /usr/bin/chromedriver
-  - sudo apt-add-repository ppa:mozillateam/firefox-next
+  - sudo apt-add-repository -y ppa:mozillateam/firefox-next
   - sudo apt-get update
   - sudo apt-get install firefox
   - sudo curl -L https://github.com/docker/compose/releases/download/1.17.0/docker-compose-`uname -s`-`uname -m` | sudo tee /usr/local/bin/docker-compose > /dev/null
