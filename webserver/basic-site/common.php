@@ -23,6 +23,45 @@
     return $json;
   }
 
+  function GetSkits($sessionID){
+    fwrite(STDOUT, 'Getting Skits For User....');
+    $curl = curl_init("http://skitter-skit/GetSkits");
+    curl_setopt($curl, CURLOPT_POST, 1);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array("Cookie: sessionID=".$sessionID));
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    $result = curl_exec($curl);
+    $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    $json = json_decode($result, true);
+    $json['status_code'] = $httpcode;
+    return $json;
+  }
+
+  function AddSkit($sessionID, $skit_message){
+    fwrite(STDOUT, 'Adding Skit For User....');
+    $curl = curl_init("http://skitter-skit/AddSkit/".$skit_message);
+    curl_setopt($curl, CURLOPT_POST, 1);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array("Cookie: sessionID=".$sessionID));
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    $result = curl_exec($curl);
+    $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    $json = json_decode($result, true);
+    $json['status_code'] = $httpcode;
+    return $json;
+  }
+
+  function RemoveSkit($sessionID, $skit_id){
+    fwrite(STDOUT, 'Removing Skit For User....');
+    $curl = curl_init("http://skitter-skit/RemoveSkit/".$skit_id);
+    curl_setopt($curl, CURLOPT_POST, 1);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array("Cookie: sessionID=".$sessionID));
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    $result = curl_exec($curl);
+    $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    $json = json_decode($result, true);
+    $json['status_code'] = $httpcode;
+    return $json;
+  }
+
   function Logout($sessionID){
     fwrite(STDOUT, 'Logout attempted....');
     $curl = curl_init("http://skitter-auth/Logout");

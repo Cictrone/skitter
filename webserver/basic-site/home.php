@@ -45,6 +45,64 @@ if(isset($_COOKIE['sessionID'])){
 							$("#profileButton").click(function(event) {
 								location.assign("/profile.php");
 							});
+							$.post("getSkits.php")
+								.done(function(data){
+									if(data.search("False - ") != -1){
+										$("#SkitsMsg").css( "color", "red" )
+										$("#SkitsMsg").html(data.substring(data.search(" - ")+3,data.length));
+									} else if(data.search("True - ") != -1){
+										var skitData = JSON.parse(data.substring(data.search(" - ")+3,data.length));
+										for (var i = 0; i < arrayLength; i++) {
+									    var skit = skitData[i];
+											var skitMessage = skit[\'_source\'][\'message\']
+											var skitID = skit[\'_id\']
+											var skitUser = skit[\'_source\'][\'user\']
+											$("#ListOfSkits").append("
+											<div id=\'"+skitID+"\'class="ui message">
+												<i class="close icon"></i>
+												<div class="header">
+													"+skitUser+"
+												</div>
+												<p>"+skitMessage+"</p>
+												</div>
+											")
+										}
+									} else{
+										$("#SkitsMsg").css( "color", "red" )
+										$("#SkitsMsg").html("There was an error getting Skits to you, contact the administrator");									}
+								});
+							$(".message .close")
+							  .on("click", function() {
+							    $(this)
+							      .closest(".message")
+							      .transition("fade");
+							  });
+							$("#SkeetButton").click(function(event){
+								event.preventDefault();
+								var skit_message = encodeURIComponent($("#SkitInput")[0].value);
+								var data = {"skit_message": skit_message}
+								$.post("addSkit.php", data)
+									.done(function(data){
+										if(data.search("False - ") != -1){
+											var error = data.substring(data.search(" - ")+3,data.length);
+											$("#skitForm").attr("class", "ui large form error");
+											$("#skitAddMsg").attr("class", "ui error message");
+											$("#skitErrorTitle").html("Skeet Failed");
+											$("#skitErrorMessage").html(error);
+										}else if(data.search("True - ") != -1){
+											$("#skitForm").attr("class", "ui large form success");
+											$("#skitAddMsg").attr("class", "ui success message");
+											$("#skitErrorTitle").html("Registration Successful");
+											$("#skitErrorMessage").html("Your skeet was successful!");
+											location.reload();
+										}else{
+											$("#skitForm").attr("class", "ui large form error");
+											$("#skitAddMsg").attr("class", "ui error message");
+											$("#skitErrorTitle").html("Skeet Failed");
+											$("#skitErrorMessage").html("There was an error with skeeting, contact the administrator");
+										}
+									});
+							});
 							$("#logoutButton").click(function(event) {
 								event.preventDefault();
 								$.post("logout.php")
@@ -96,15 +154,25 @@ if(isset($_COOKIE['sessionID'])){
 									</div>
 									<div id="logoutMsg"></div>
 							</div>
+
+
 							<div class="twelve wide column">
-								<div class="ui fluid action input">
-									<input type="text" placeholder="Enter a Skit...">
-									<button class="ui pink right labeled icon button">
-								    <i class="edit icon"></i>
-								    Skeet
-								  </button>
-								</div>
+								<form id="skitForm" class="ui large form">
+									<div class="ui fluid action input">
+										<input id="SkitInput" type="text" placeholder="Enter a Skit...">
+										<button id="SkeetButton" class="ui pink right labeled icon button">
+									    <i class="edit icon"></i>
+									    Skeet
+									  </button>
+									</div>
+									<div id="skitAddMsg"><div id="skitErrorTitle" class="header"></div><p id="skitErrorMessage"></p></div>
+									<br />
+									<div id="ListOfSkits"></div>
+									<div id="SkitsMsg"></div>
+								</form>
 							</div>
+
+
 						</div>
 					</div>
 				</body>

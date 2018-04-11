@@ -7,6 +7,7 @@
   $name = htmlspecialchars($_POST['name']);
 
   $registerResponse = Register($username, $password, $email, $name);
+  fwrite(STDOUT, implode($registerResponse));
   if (!($registerResponse['response'] == "true")){
     if ($registerResponse['status_code'] == "409"){
       die("False - User Already Exists");

@@ -80,8 +80,10 @@ if(isset($_COOKIE['sessionID'])){
 							$("#registerErrorTitle").html("Registration Successful");
 							$("#registerErrorMessage").html("Your registration was successful!");
 						}else{
-							$("#registerMsg").css( "color", "red" )
-							$("#registerMsg").html("There was an error logging you in, contact the administrator");
+							$("#registerForm").attr("class", "ui large form error");
+							$("#registerMsg").attr("class", "ui error message");
+							$("#registerErrorTitle").html("Registration Failed");
+							$("#registerErrorMessage").html("There was an error with registering you, contact the administrator");
 						}
 					})
 					.always(function(data){
