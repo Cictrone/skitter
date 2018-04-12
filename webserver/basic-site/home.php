@@ -57,15 +57,7 @@ if(isset($_COOKIE['sessionID'])){
 											var skitMessage = skit[\'_source\'][\'message\']
 											var skitID = skit[\'_id\']
 											var skitUser = skit[\'_source\'][\'user\']
-											$("#ListOfSkits").append("
-											<div id=\'"+skitID+"\'class="ui message">
-												<i class="close icon"></i>
-												<div class="header">
-													"+skitUser+"
-												</div>
-												<p>"+skitMessage+"</p>
-												</div>
-											")
+											$("#ListOfSkits").append("<div id=\'"+skitID+"\'class=\'ui message\'><i class=\'close icon\'></i><div class=\'header\'>"+skitUser+"</div><p>"+skitMessage+"</p></div>");
 										}
 									} else{
 										$("#SkitsMsg").css( "color", "red" )
