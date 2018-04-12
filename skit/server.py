@@ -29,9 +29,11 @@ def GetSkit():
     hits = []
     status = 401
     resp = requests.post("http://skitter-auth/GetUserData", cookies=request_obj.cookies)
+    print("1: ", resp.json())
     if 'username' in resp.json():
         username = resp.json()['username']
         resp = requests.post("http://skitter-skit-db:9200/skits/_search/", data={"query": { "constant_score":{"filter":{"term":{"user": username}}}}})
+        print("2: ", resp.json())
         try:
             success = (resp.json()['_shards']['failed'] == 0)
             hits = resp.json()['hits']['hits']
