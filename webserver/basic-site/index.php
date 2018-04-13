@@ -64,6 +64,8 @@ if(isset($_COOKIE['sessionID'])){
 						$("#loginMsg").css( "color", "red" )
 						$("#loginMsg").html("There was an error logging you in, contact the administrator");
 					}
+					$("#usernameInputDiv").attr("class", "ui left icon input");
+					$("#passwordInputDiv").attr("class", "ui left icon input");
 					});
 			});
 		});
