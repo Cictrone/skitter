@@ -5,7 +5,7 @@
   	$sessionID = $_COOKIE['sessionID'];
   	if(isAuthenticated($sessionID)){
       $response = GetSkits($sessionID);
-      fwrite(STDOUT, implode($response));
+      fwrite(STDOUT, $sessionID);
       if ($response['success']){
         die("True - ".$response['skits']);
       }else{
