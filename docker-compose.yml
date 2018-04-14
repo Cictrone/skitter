@@ -16,6 +16,8 @@ services:
 
   skitter-skit-db:
     image: elasticsearch
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
 
   skitter-skit:
     build: skit/
