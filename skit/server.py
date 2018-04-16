@@ -1,4 +1,4 @@
-from flask import Flask, json
+from flask import Flask, jsonify
 from flask import request as request_obj
 import requests
 import json
@@ -24,7 +24,8 @@ def AddSkit(skit_message):
         skit_id = resp.json()['_id']
         if success:
             status = 201
-    resp = app.response_class( response={"success": success, "_id": skit_id}, status=status, mimetype='application/json')
+    resp = jsonify({"success": success, "_id": skit_id})
+    resp.status_code = status
     return resp
 
 @app.route('/GetSkits', methods=['POST'])
@@ -47,8 +48,9 @@ def GetSkit():
         except:
             success = False
         if success:
-            status = 201
-    resp = app.response_class( response={"success": success, "skits": hits}, status=status, mimetype='application/json')
+            status = 200
+    resp = jsonify({"success": success, "skits": hits})
+    resp.status_code = status
     return resp
 
 @app.route('/RemoveSkit/<skit_id>', methods=['POST'])
@@ -83,7 +85,8 @@ def RemoveSkit(skit_id):
             success = (resp.json()['total'] == 1)
             if success:
                 status = 201
-    resp = app.response_class( response={"success": success}, status=status, mimetype='application/json')
+    resp = jsonify({"success": success})
+    resp.status_code = status
     return resp
 
 if __name__ == '__main__':

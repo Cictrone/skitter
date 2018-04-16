@@ -8,4 +8,4 @@ curl -X PUT  skitter-skit-db:9200/skits
 
 
 #run the flask api
-python server.py
+python -u server.py
