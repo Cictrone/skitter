@@ -39,7 +39,7 @@ def GetSkit():
         data = {"query": { "constant_score":{"filter":{"term":{"user": username}}}}}
         data_s = json.dumps(data)
         header = {"Content-Type": "application/json"}
-        resp = requests.post("http://skitter-skit-db:9200/skits/_search/", headers=headers, data=data_s)
+        resp = requests.post("http://skitter-skit-db:9200/skits/_search/", headers=header, data=data_s)
         print("2: ", resp.json())
         try:
             success = (resp.json()['_shards']['failed'] == 0)
