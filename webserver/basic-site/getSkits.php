@@ -6,7 +6,11 @@
   	if(isAuthenticated($sessionID)){
       $response = GetSkits($sessionID);
       if ($response['success']){
-        die("True - ".implode($response['skits']));
+        if (empty($response['skits'])){
+          die("True - []")
+        }else{
+          die("True - ".implode($response['skits']));          
+        }
       }else{
         die("False - Unable to Retrieve Skits");
       }
