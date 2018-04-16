@@ -1,6 +1,7 @@
 from flask import Flask, json
 from flask import request as request_obj
 import requests
+import json
 
 app = Flask(__name__)
 
@@ -12,7 +13,10 @@ def AddSkit(skit_message):
     resp = requests.post("http://skitter-auth/GetUserData", cookies=request_obj.cookies)
     if 'username' in resp.json():
         username = resp.json()['username']
-        resp = requests.post("http://skitter-skit-db:9200/skits/_doc/", data={"user": username, "message": skit_message})
+        data = {"user": username, "message": skit_message}
+        data_s = json.dumps(data)
+        header = {"Content-Type": "application/json"}
+        resp = requests.post("http://skitter-skit-db:9200/skits/_doc/", headers=header, data=data_s)
         try:
             success = (resp.json()['_shards']['failed'] == 0)
         except:
@@ -32,7 +36,10 @@ def GetSkit():
     print("1: ", resp.json())
     if 'username' in resp.json():
         username = resp.json()['username']
-        resp = requests.post("http://skitter-skit-db:9200/skits/_search/", data={"query": { "constant_score":{"filter":{"term":{"user": username}}}}})
+        data = {"query": { "constant_score":{"filter":{"term":{"user": username}}}}}
+        data_s = json.dumps(data)
+        header = {"Content-Type": "application/json"}
+        resp = requests.post("http://skitter-skit-db:9200/skits/_search/", headers=headers, data=data_s)
         print("2: ", resp.json())
         try:
             success = (resp.json()['_shards']['failed'] == 0)
@@ -52,7 +59,10 @@ def RemoveSkit(skit_id):
     resp = requests.post("http://skitter-auth/GetUserData", cookies=request_obj.cookies)
     if 'username' in resp.json():
         username = resp.json()['username']
-        resp = requests.post("http://skitter-skit-db:9200/skits/_search/", data={"query": { "constant_score":{"filter":{"term":{"user": username}}}}})
+        data = {"query": { "constant_score":{"filter":{"term":{"user": username}}}}}
+        data_s = json.dumps(data)
+        header = {"Content-Type": "application/json"}
+        resp = requests.post("http://skitter-skit-db:9200/skits/_search/", headers=header, data=data_s)
         try:
             success = (resp.json()['_shards']['failed'] == 0)
             hits = resp.json()['hits']['hits']
@@ -66,7 +76,10 @@ def RemoveSkit(skit_id):
                     break
             if skit_found is None:
                 return {"success": False}, 400
-            resp = requests.post("http://skitter-skit-db:9200/skits/_delete_by_query", data={"query": { "match": { "_id": skit_id}}})
+            data = {"query": { "match": { "_id": skit_id}}}
+            data_s = json.dumps(data)
+            header = {"Content-Type": "application/json"}
+            resp = requests.post("http://skitter-skit-db:9200/skits/_delete_by_query", headers=header, data=data_s)
             success = (resp.json()['total'] == 1)
             if success:
                 status = 201
