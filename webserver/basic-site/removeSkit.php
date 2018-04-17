@@ -9,7 +9,7 @@
         die("True - Skit Removed");
       }else{
         if($response['status_code'] == "400"){
-          die("False - Request was Malformed")
+          die("False - Request was Malformed");
         }else{
           die("False - Unable to Remove Skit");
         }

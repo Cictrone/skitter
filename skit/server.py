@@ -1,6 +1,7 @@
 from flask import Flask, jsonify
 from flask import request as request_obj
 import requests
+import datetime
 import json
 
 app = Flask(__name__)
@@ -11,9 +12,10 @@ def AddSkit(skit_message):
     status = 401
     skit_id = None
     resp = requests.post("http://skitter-auth/GetUserData", cookies=request_obj.cookies)
+    print("SessionID: {}".format(request_obj.cookies['sessionID']))
     if 'username' in resp.json():
         username = resp.json()['username']
-        data = {"user": username, "message": skit_message}
+        data = {"user": username, "message": skit_message, "timestamp":datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")}
         data_s = json.dumps(data)
         header = {"Content-Type": "application/json"}
         resp = requests.post("http://skitter-skit-db:9200/skits/_doc/", headers=header, data=data_s)
