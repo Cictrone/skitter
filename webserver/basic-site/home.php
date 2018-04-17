@@ -52,7 +52,7 @@ if(isset($_COOKIE['sessionID'])){
 										$("#SkitsMsg").html(data.substring(data.search(" - ")+3,data.length));
 									} else if(data.search("True - ") != -1){
 										var skitData = JSON.parse(data.substring(data.search(" - ")+3,data.length));
-										for (var i = 0; i < arrayLength; i++) {
+										for (var i = 0; i < skitData.length; i++) {
 									    var skit = skitData[i];
 											var skitMessage = skit[\'_source\'][\'message\']
 											var skitID = skit[\'_id\']
