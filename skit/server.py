@@ -18,10 +18,8 @@ def AddSkit(skit_message):
         data = {"user": username, "message": skit_message, "timestamp":datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")}
         data_s = json.dumps(data)
         header = {"Content-Type": "application/json"}
-        perm_data = {"index.blocks.read_only_allow_delete": "false"}
-        perm_data_s = json.dumps(perm_data)
-        requests.put("http://skitter-skit-db:9200/_all/_settings", headers=header, data=perm_data_s)
         resp = requests.post("http://skitter-skit-db:9200/skits/_doc/", headers=header, data=data_s)
+        print("2: ", resp.json())
         try:
             success = (resp.json()['_shards']['failed'] == 0)
         except:
@@ -45,9 +43,6 @@ def GetSkit():
         data = {"query": { "constant_score":{"filter":{"term":{"user": username}}}}}
         data_s = json.dumps(data)
         header = {"Content-Type": "application/json"}
-        perm_data = {"index.blocks.read_only_allow_delete": "false"}
-        perm_data_s = json.dumps(perm_data)
-        requests.put("http://skitter-skit-db:9200/_all/_settings", headers=header, data=perm_data_s)
         resp = requests.post("http://skitter-skit-db:9200/skits/_search/", headers=header, data=data_s)
         print("2: ", resp.json())
         try:
@@ -72,9 +67,6 @@ def RemoveSkit(skit_id):
         data = {"query": { "constant_score":{"filter":{"term":{"user": username}}}}}
         data_s = json.dumps(data)
         header = {"Content-Type": "application/json"}
-        perm_data = {"index.blocks.read_only_allow_delete": "false"}
-        perm_data_s = json.dumps(perm_data)
-        requests.put("http://skitter-skit-db:9200/_all/_settings", headers=header, data=perm_data_s)
         resp = requests.post("http://skitter-skit-db:9200/skits/_search/", headers=header, data=data_s)
         try:
             success = (resp.json()['_shards']['failed'] == 0)
