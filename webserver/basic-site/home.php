@@ -75,7 +75,10 @@ if(isset($_COOKIE['sessionID'])){
 											$("#skitErrorTitle").html("Failed to Remove Skit");
 											$("#skitErrorMessage").html(error);
 										}else if(data.search("True - ") != -1){
-											location.reload();
+											setTimeout(function (){
+											  location.reload();
+											}, 100);
+											
 										}else{
 											$("#skitForm").attr("class", "ui large form error");
 											$("#skitAddMsg").attr("class", "ui error message");
@@ -97,7 +100,9 @@ if(isset($_COOKIE['sessionID'])){
 											$("#skitErrorTitle").html("Skeet Failed");
 											$("#skitErrorMessage").html(error);
 										}else if(data.search("True - ") != -1){
-											location.reload();
+											setTimeout(function (){
+											  location.reload();
+											}, 100);
 										}else{
 											$("#skitForm").attr("class", "ui large form error");
 											$("#skitAddMsg").attr("class", "ui error message");
