@@ -4,6 +4,9 @@ services:
   skitter:
     build: webserver/
 
+  skitter-ca:
+    build: ca/
+
   skitter-auth-db:
     image: mariadb
     environment:

@@ -1,8 +1,8 @@
 FROM nginx:alpine
 
 COPY nginx.conf /etc/nginx/nginx.conf
-RUN apk add --update openssl openssl-dev
+COPY entrypoint.sh /opt/entrypoint.sh
+RUN apk add --update python curl
 RUN mkdir -p /etc/nginx/certs
-RUN openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 \
-    -subj "/C=US/ST=NY/L=Rochester/O=Student/CN=skitter" \
-    -keyout /etc/nginx/certs/skitter.key  -out /etc/nginx/certs/skitter.cert
+RUN chmod 755 /opt/entrypoint.sh
+ENTRYPOINT ["/opt/entrypoint.sh"]
