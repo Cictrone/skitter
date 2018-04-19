@@ -12,9 +12,6 @@ from pyvirtualdisplay import Display
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
-class TestMethods(unittest.TestCase):
-
-
 class Browser():
     def __init__(self, driver):
         self.driver = driver
