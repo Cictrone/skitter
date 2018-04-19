@@ -9,7 +9,7 @@
         if (empty($response['skits'])){
           die("True - []");
         }else{
-          die("True - ".implode($response['skits']));
+          die("True - ".json_encode($response['skits']));
         }
       }else{
         die("False - Unable to Retrieve Skits");
